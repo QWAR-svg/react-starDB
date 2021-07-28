@@ -1,31 +1,72 @@
-import React from 'react';
+import React, {
+    Component
+} from 'react';
 import './person-details.css';
-const PersonDetails = () => {
-    return (
-        <div className="person-details card">
-             <img className="person-image"
-          src="https://starwars-visualguide.com/assets/img/characters/3.jpg" />
+import SwapiService from '../../services/swapi-services';
 
-            <div className="card-body">
-                <h4>R2-D2</h4>
-                <ul className="list-group list-group-flush">
-                    <li className="list-group-item">
-                        <span className="term">Gender</span>
-                        <span>male</span>
-                    </li>
-                    <li className="list-group-item">
-                        <span className="term">Birth year</span>
-                        <span>43</span>
-                    </li>
-                    <li className="list-group-item">
-                        <span className="term">Eye color</span>
-                        <span>red</span>
-                    </li>
+export default class PersonDetails extends Component {
 
-                </ul>
+    swapiService = new SwapiService();
+    state = {
+        person: {}
+    }
+
+    componentDidMount() {
+        this.swapiService
+            .getPerson(this.props.id)
+            .then((person) => {
+                console.log(person)
+                this.setState({
+                    person
+                })
+            })
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.id !== prevProps.id) {
+            this.swapiService
+                .getPerson(this.props.id)
+                .then((person) => {
+                    this.setState({
+                        person
+                    })
+                })
+        }
+    }
+
+
+
+    render() {
+
+        const { id, name, gender, birthYear, eyeColor } = this.state.person;
+
+        console.log(name);
+
+        return (
+            <div className="person-details card" >
+                <img className="person-image"
+                    src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} />
+
+                <div className="card-body" >
+                    <h4 > {name} </h4>
+
+                    <ul className="list-group list-group-flush" >
+                        <li className="list-group-item" >
+                            <span className="term" > Gender </span>
+                            <span> {gender} </span>
+                        </li>
+                        <li className="list-group-item" >
+                            <span className="term" >Year </span>
+                            <span > {birthYear} </span>
+                        </li>
+                        <li className="list-group-item" >
+                            <span className="term" > Color eye</span>
+                            <span> {eyeColor} </span>
+                        </li>
+
+                    </ul>
+                </div >
             </div>
-        </div>
-    )
+        )
+    }
 }
-
-export default PersonDetails;
