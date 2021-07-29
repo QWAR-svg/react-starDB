@@ -1,37 +1,35 @@
-import React , {Component} from 'react';
+import React, { Component } from 'react';
 import Header from '../header';
 import RandomPlanet from '../random-planet';
+import PeoplePage from '../people-page';
 import ItemList from '../item-list';
-import PersonDetails from '../person-details';
-
+import PersonDetails from '../item-details';
 import './app.css';
-
+import SwapiService from '../../services/swapi-services';
 
 export default class App extends Component {
 
-    state = {
-        id: 1
-    }
-
-    onItemSelected= (id) => {
-        this.setState({id});
-    }
+    swapiService = new SwapiService();
 
     render() {
         return (
             <div>
-                <Header/>
-                <RandomPlanet/>
-                <div className="row mb2">
-                    <div className="col-md-6">
-                        <ItemList
-                        
-                        onItemSelected={this.onItemSelected}/>
-                    </div>
-                    <div className="col-md-6">
-                        <PersonDetails id={this.state.id}/>
-                    </div>
-                </div>
+                <Header />
+                <RandomPlanet />
+                <PeoplePage
+                    getData={this.swapiService.getAllPeople}
+                    getInform={this.swapiService.getPerson}
+                    getImageUrl={this.swapiService.getPersonImage}
+                    
+                />
+
+
+                <PeoplePage
+                    getData={this.swapiService.getAllPlanets}
+                    getInform={this.swapiService.getPlanet}
+                    getImageUrl={this.swapiService.getPlanetImage}
+                />
+
             </div>
         )
     }

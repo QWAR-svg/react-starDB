@@ -1,34 +1,35 @@
-import React, {
-    Component
-} from 'react';
-import './person-details.css';
+import React, {Component} from 'react';
+import './item-details.css';
 import SwapiService from '../../services/swapi-services';
 
-export default class PersonDetails extends Component {
+export default class ItemDetails extends Component {
 
     swapiService = new SwapiService();
     state = {
-        person: {}
+        item: {},
+        image: null
     }
 
     componentDidMount() {
-        this.swapiService
-            .getPerson(this.props.id)
-            .then((person) => {
-                console.log(person)
+        const {id, getInform, getImageUrl} = this.props
+            getInform(id)
+            .then((item) => {
+                console.log(item)
                 this.setState({
-                    person
+                    item,
+                    image: getImageUrl(item)
                 })
             })
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.id !== prevProps.id) {
-            this.swapiService
-                .getPerson(this.props.id)
-                .then((person) => {
+            const {id, getInform, getImageUrl} = this.props
+            getInform(id)
+                .then((item) => {
                     this.setState({
-                        person
+                        item,
+                        image: getImageUrl(item)
                     })
                 })
         }
@@ -38,14 +39,14 @@ export default class PersonDetails extends Component {
 
     render() {
 
-        const { id, name, gender, birthYear, eyeColor } = this.state.person;
+        const { id, name, gender, birthYear, eyeColor } = this.state.item;
 
         console.log(name);
-
+        const {image} = this.state;
         return (
             <div className="person-details card" >
                 <img className="person-image"
-                    src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} />
+                    src={image} />
 
                 <div className="card-body" >
                     <h4 > {name} </h4>
