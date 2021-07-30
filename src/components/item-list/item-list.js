@@ -2,50 +2,35 @@ import React, {Component} from 'react';
 // import SwapiService from '../../services/swapi-services';
 import './item-list.css';
 import Spinner from '../spinner';
+import SwapiService from '../../services/swapi-services';
+import widthData from '../Hoc-Helper/width-data';
+ const ItemList  = (props) => {
 
-export default class ItemList extends Component {
-
-  
- 
-    state = {
-        ItemList: [],
-    }
-
-
-    componentDidMount() {
-        const {getData} = this.props;
-        
-        getData()
-        .then((ItemList) => {
-            this.setState({
-                ItemList
-            })
-         
-        })
-    }
-
-    renderItems(arr) {
-        return arr.map(({id, name}) => {
-            return <li className="list-group-item" key={id} onClick={() => {
+    const {data, children: renderLabel} = props;
+   
+       const items = data.map((item) => {
+           const {id} = item;
+            return <li className="list-group-item" key={id} onClick=
+            {() => {
                 this.props.onItemSelected(id)
-            }}>{name}</li>
+            }}
+            >{item.name}</li>
         })
-    }
+    
 
-
-    render() {
-        const {ItemList} = this.state;
-        const x = this.renderItems(ItemList)
-
-        if (!ItemList) {
-            return <Spinner/>
-        }
-        return (
+    
+    return (
             <ul className="item-list list-group">
-                {x}
+                {items}
             </ul>
-         )
-    }
+    )
 }
 
+
+
+
+
+const {getAllPeople} = new SwapiService();
+
+export default widthData(ItemList, getAllPeople);
 
