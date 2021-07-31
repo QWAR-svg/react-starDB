@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import Header from '../header';
 import RandomPlanet from '../random-planet';
-import PeoplePage from '../people-page';
 import ItemList from '../item-list';
-// import PersonDetails from '../item-details';
 import './app.css';
 import SwapiService from '../../services/swapi-services';
 import ItemDetails, { Rec } from '../item-details/item-details';
+import { PersonList } from '../sw-components';
 
 const Row = ({left, right}) => {
     return (
@@ -56,9 +55,8 @@ export default class App extends Component {
             <div>
                 <Header />
                 <RandomPlanet />
-                <ItemList getData={this.swapiService.getAllStarships}/>
-
-                <Row left={personDetails} right={planetDetails} />
+               
+               <PersonList/> 
                 
                
 

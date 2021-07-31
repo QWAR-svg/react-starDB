@@ -52,12 +52,10 @@ export default class ItemDetails extends Component {
         }
     }
 
-
-
     render() {
 
         const { item } = this.state;
-        const { id, name, gender, birthYear, eyeColor } = this.state.item;
+        const { name,} = this.state.item;
 
         const {image} = this.state;
         return (

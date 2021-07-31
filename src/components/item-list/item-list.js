@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 // import SwapiService from '../../services/swapi-services';
 import './item-list.css';
-import Spinner from '../spinner';
-import SwapiService from '../../services/swapi-services';
-import widthData from '../Hoc-Helper/width-data';
+
  const ItemList  = (props) => {
 
     const {data, children: renderLabel} = props;
@@ -26,11 +24,8 @@ import widthData from '../Hoc-Helper/width-data';
     )
 }
 
+export default ItemList;
 
 
 
-
-const {getAllPeople} = new SwapiService();
-
-export default widthData(ItemList, getAllPeople);
 
