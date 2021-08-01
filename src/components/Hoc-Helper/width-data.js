@@ -14,7 +14,7 @@ const widthData = (View, getData) => {
                 this.setState({
                     data
                 })
-                console.log(this.state);
+               
             })
         } 
         render() {

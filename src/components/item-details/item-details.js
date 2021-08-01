@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './item-details.css';
 import SwapiService from '../../services/swapi-services';
 
-
+import { SwapiServiceConsumer } from '../swapi-service-context';
 
 
 const Rec = ({item, field, label}) => {
@@ -29,6 +29,7 @@ export default class ItemDetails extends Component {
 
     componentDidMount() {
         const {id, getInform, getImageUrl} = this.props
+
             getInform(id)
             .then((item) => {
                 // console.log(item)
