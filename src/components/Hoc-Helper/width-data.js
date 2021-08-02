@@ -1,15 +1,15 @@
 import React, {Component} from "react";
 import Spinner from "../spinner";
 
-const widthData = (View, getData) => {
+const widthData = (View) => {
+    
     return class extends Component{
-
         state = {
             data: [],
         } 
 
         componentDidMount() {
-            getData()
+            this.props.getData()
             .then((data) => {
                 this.setState({
                     data
@@ -19,6 +19,7 @@ const widthData = (View, getData) => {
         } 
         render() {
             const {data} = this.state;
+            console.log(this.props)
             if (!data) {
                 return <Spinner/>
             }

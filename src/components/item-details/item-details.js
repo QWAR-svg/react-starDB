@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import './item-details.css';
 import SwapiService from '../../services/swapi-services';
 
-import { SwapiServiceConsumer } from '../swapi-service-context';
-
 
 const Rec = ({item, field, label}) => {
     return (
@@ -28,9 +26,9 @@ export default class ItemDetails extends Component {
     }
 
     componentDidMount() {
-        const {id, getInform, getImageUrl} = this.props
+        const {id, getData, getImageUrl} = this.props
 
-            getInform(id)
+            getData(id)
             .then((item) => {
                 // console.log(item)
                 this.setState({
@@ -42,8 +40,8 @@ export default class ItemDetails extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.id !== prevProps.id) {
-            const {id, getInform, getImageUrl} = this.props
-            getInform(id)
+            const {id, getData, getImageUrl} = this.props
+            getData(id)
                 .then((item) => {
                     this.setState({
                         item,

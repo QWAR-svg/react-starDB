@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import Header from '../header';
 import RandomPlanet from '../random-planet';
-import ItemList from '../item-list';
 import './app.css';
 import SwapiService from '../../services/swapi-services';
-import ItemDetails, { Rec } from '../item-details/item-details';
-import { PersonList, StarshipList, PlanetList , PersonDetails, StarshipDetails, PlanetDetails } from '../sw-components';
+import { StarshipList, PlanetList,StarshipDetails, PlanetDetails } from '../sw-components';
 import { SwapiServiceProvider } from '../swapi-service-context';
-
+import {PeoplePage, StarshipPage, PlanetPage} from '../pages';
 
 const Row = ({ left, right }) => {
     return (
@@ -22,25 +20,22 @@ const Row = ({ left, right }) => {
     );
 }
 
+export {
+    Row
+}
 
 
 export default class App extends Component {
-
     swapiService = new SwapiService();
-
     render() {
-
         return (
             <div>
                 <SwapiServiceProvider value={this.swapiService}>
                     <Header />
                     {/* <RandomPlanet /> */}
-                    <PersonDetails id={6}/>
-                     <StarshipDetails id = {5}/> 
-                      <PlanetDetails id={5}/>  
-                    <PersonList />
-                    <StarshipList />
-                    <PlanetList />
+                    <PeoplePage/>
+                    <PlanetPage/>
+                    <StarshipPage/>                    
                 </SwapiServiceProvider>
             </div>
         )

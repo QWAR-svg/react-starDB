@@ -1,18 +1,14 @@
 import React from "react"
 import ItemDetails , {Rec} from "../item-details"
-import { SwapiServiceConsumer } from "../swapi-service-context"
-import withSwapiService from "../Hoc-Helper/with-swapi-service"
+import withSwapiService from "../Hoc-Helper/with-swapi-service.js"
 
 
-const PersonDetails = ({id, swapiService}) => {
-
-    const {getPerson, getPersonImage} = swapiService;
+const PersonDetails = (props) => {
+        // console.log(props);
 
         return (
         <ItemDetails 
-            id={id}
-            getInform={getPerson}
-            getImageUrl={getPersonImage}>
+            {...props}>
             <Rec field="gender" label="Gender" />
             <Rec field="eyeColor" label="Eye Color" />
         </ItemDetails>
@@ -20,4 +16,11 @@ const PersonDetails = ({id, swapiService}) => {
 
 }
 
-export default withSwapiService(PersonDetails);
+const mapMethodsToProps = (swapiService) => {
+    return {
+        getData: swapiService.getPerson,
+        getImageUrl: swapiService.getPersonImage
+    }
+}
+
+export default withSwapiService(PersonDetails, mapMethodsToProps);
